@@ -95,7 +95,15 @@ int lista_insere_fim (struct lista *lista, int chave){
 	/*Memória não foi alocada corretamente.*/
 	return 0;
 }
-/*dar uma mexida*/
+
+/* Caso a lista esteja vazia, o elemento é inserido no primeiro elemento;
+ * Caso a lista tenha apenas um elemento, se a chave for maior que esse elemento
+ * a função "lista_insere_fim" é utilizada para colocar o novo elemento no fim;
+ * Caso a chave seja maior, "lista_insere_inicio" é utilizada para colocar no início;
+ * Caso o tamanho seja maior que 1, ao encontrar um elemento que seja maior que a chave
+ * ou ao chegar ao fim da lista, aponta o elemento anterior ao elemento maior para o novo
+ * elemento, e o novo elemento aponta para o maior ou para o "NULL". 
+ * */
 int lista_insere_ordenado (struct lista *lista, int chave) {
 	if (lista->ini == NULL){
 		lista_insere_fim(lista, chave);
@@ -105,6 +113,7 @@ int lista_insere_ordenado (struct lista *lista, int chave) {
 		if (lista->ini->chave < chave){
 			lista_insere_fim(lista, chave);
 			return 1;
+
 		lista_insere_inicio(lista, chave);
 		return 1;	
 		}
@@ -185,7 +194,14 @@ int lista_remove_fim (struct lista *lista, int *chave) {
 	lista->tamanho--;
 	return 1;
 } 
-/*mexer ta fei*/
+
+/* Busca o elemento que deve ser removido
+ * Caso o elemento esteja na primeira posição,
+ * usa a função "lista_remove_inicio" para remover;
+ * Caso contrário, o elemento que deve ser removido é liberado;
+ * O nodo anterior aponta para o posterior ao eliminado;
+ * O tamanho da lista é decrementado.
+ * */
 int lista_remove_ordenado (struct lista *lista, int chave) {
 	if(lista->ini == NULL)
 		return 0;
@@ -247,10 +263,16 @@ int lista_pertence (struct lista *lista, int chave) {
 	return 0;
 }
 
+/* Aponta o "ptr" para o início da lista "lista->ini".
+ * */
 void lista_inicia_iterador (struct lista *lista) {
 	lista->ptr = lista->ini;
 }
 
+/* Caso "lista->ptr" não for nulo,
+ * "lista->ptr" recebe "lista->ptr->prox"
+ * e "*chave" recebe "lista->ptr->chave".
+ * */
 int lista_incrementa_iterador (struct lista *lista, int *chave) {
 	if (lista->ptr != NULL) {
 		*chave = lista->ptr->chave;
