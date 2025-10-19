@@ -113,11 +113,11 @@ int lista_insere_ordenado (struct lista *lista, int chave) {
 		if (lista->ini->chave < chave){
 			lista_insere_fim(lista, chave);
 			return 1;
-
+		}
 		lista_insere_inicio(lista, chave);
 		return 1;	
 		}
-	}
+	
 	if (lista->ini->chave >= chave){
 		lista_insere_inicio(lista, chave);
 		return 1;
